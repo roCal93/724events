@@ -27,6 +27,7 @@
     }
     &__paginationContainer {
       position: absolute;
+      z-index: 1;
       left: 0;
       bottom: 60px;
       display: flex;
@@ -37,6 +38,7 @@
         height: 16px;
         min-width: 0;
         color: $primary;
+        cursor: pointer;
       }
     }
     &__description {
