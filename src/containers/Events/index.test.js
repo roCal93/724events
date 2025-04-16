@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, act } from "@testing-library/react";
 import { api, DataProvider } from "../../contexts/DataContext";
 import Events from "./index";
 
@@ -45,21 +45,24 @@ describe("When Events is created", () => {
         <Events />
       </DataProvider>
     );
-    await screen.findByText("avril");
+    await screen.findAllByText("avril");
   });
-  describe("and an error occured", () => {
+  describe("and an error occurred", () => {
     it("an error message is displayed", async () => {
-      api.loadData = jest.fn().mockRejectedValue();
-      render(
-        <DataProvider>
-          <Events />
-        </DataProvider>
-      );
-      expect(await screen.findByText("An error occured")).toBeInTheDocument();
+      api.loadData = jest.fn().mockRejectedValue(new Error("Network error"));
+      await act(async () => {
+        render(
+          <DataProvider>
+            <Events />
+          </DataProvider>
+        );
+      });
+
+      expect(await screen.findByText("An error occurred")).toBeInTheDocument();
     });
   });
   describe("and we select a category", () => {
-    it.only("an filtered list is displayed", async () => {
+    it("an filtered list is displayed", async () => {
       api.loadData = jest.fn().mockReturnValue(data);
       render(
         <DataProvider>

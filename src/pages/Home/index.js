@@ -128,6 +128,7 @@ const Page = () => {
           <Modal key={lastEvent.id} Content={<ModalEvent event={lastEvent} />}>
             {({ setIsOpened }) => (
               <EventCard
+                data-testid="last-event-card"
                 onClick={() => setIsOpened(true)}
                 imageSrc={lastEvent.cover}
                 title={lastEvent.title}
@@ -162,7 +163,7 @@ const Page = () => {
       <div className="col description">
         <Logo size="large" />
         <p>
-          Une agence événementielle propose des prestations de service
+          l&apos;agence événementielle vous propose des prestations de service
           spécialisées dans la conception et l&apos;organisation de divers événements
           tels que des événements festifs, des manifestations sportives et
           culturelles, des événements professionnels
